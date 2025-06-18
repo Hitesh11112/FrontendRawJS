@@ -1,3 +1,15 @@
+// Wait until the user stops triggering the event for a specific time, and then run the function once.
+let timeout;
+const debouncing = () =>{
+    clearTimeout(timeout);
+    timeout = setTimeout(()=>{
+        clicked();
+    },1000);
+};
+
+//Throttling : Limit the function execution to once every X milliseconds, even if the event keeps firing.
+    
+
 async function clicked() {
     try {
         const firstNum = document.querySelector(".input1").value;

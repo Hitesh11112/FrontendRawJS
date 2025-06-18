@@ -9,9 +9,11 @@
 
 <body>
     <h3>
-        First Value<br><input type="Number" class="input1"><br><br>
-        Second Value<br><input type="Number" class="input2"><br><br>
-        <input type="button" value="Submit" onclick="clicked()">
+        First Value<br><input oninput="debouncing()" type="Number" class="input1"><br><br>
+        Second Value<br><input oninput="debouncing()" type="Number" class="input2"><br><br>
+
+        <!-- without using the this div we can also do but we need first the bebouncing and throttling  -->
+        <!-- <input type="button" value="Submit" onclick="clicked()"> -->
     </h3>
     <p class="output"></p>
     <script src="script.js"></script>
