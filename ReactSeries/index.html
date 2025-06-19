@@ -1,44 +1,57 @@
 <html>
 
+<head>
+    <Title>To Do</Title>
+</head>
+
 <body>
+    <div>
+        <!-- <input type="text" placeholder="Title" class="Title"><br><br> -->
+        <!-- <input type="text" placeholder="Description" class="Description"><br><br> -->
+        <h1>Values are coming all the way from the Backend</h1> <!--directly updated -->
+        <!-- <input type="button" class="Button" onclick="addTodo()" value="Add ToDo"><br><br> -->
+        <div class="container"></div>
+    </div>
     <script>
         let id = 1;
-        function setId(id){
+        function setId(id) {
             const parent = document.getElementById(id);
-            parent.children[2].innerText = "Done";
+            parent.remove();
         }
 
-        function addTodo(){
-
-            const title = document.querySelector(".Title");   
-            const description = document.querySelector(".Description");
-            const showOutput = document.querySelector(".container");
-
+        function addTodo(title, description, id) {
             const mainOuterDiv = document.createElement("div");
-            mainOuterDiv.setAttribute("id",id);
+            mainOuterDiv.setAttribute("id", id);
             const inner1Div = document.createElement("div");
             const inner2Div = document.createElement("div");
             const innerbutton = document.createElement("button");
-            innerbutton.setAttribute("onclick",`setId(${id})`);
-            inner1Div.innerHTML = title.value;
-            inner2Div.innerHTML = description.value;
-            innerbutton.innerText = "Mark as Done";
+            innerbutton.setAttribute("onclick", `setId(${id})`);
+            inner1Div.innerHTML = title;
+            inner2Div.innerHTML = description;
+            innerbutton.innerText = "Remove Todo";
             mainOuterDiv.appendChild(inner1Div);
             mainOuterDiv.appendChild(inner2Div);
             mainOuterDiv.appendChild(innerbutton);
-            showOutput.appendChild(mainOuterDiv);
-            id +=1;
+            id += 1;
+            return mainOuterDiv;
         }
 
+        function updateAsPerTheState(state) {
+            const parent = document.querySelector(".container");
+            parent.innerHTML = "";
+            for (let i = 0; i < state.length; ++i) {
+                const child = addTodo(state[i].title, state[i].description,state[i].id);
+                parent.appendChild(child);
+            }
+        };
+
+        window.setInterval(async () => {
+            const response = await fetch("http://localhost:3000/data");
+            const data = await response.json();
+            updateAsPerTheState(data);
+        }, 3000);
+
     </script>
-    <div>
-        <input type="text" placeholder="Title" class="Title"><br><br>
-        <input type="text" placeholder="Description" class="Description"><br><br>
-
-        <input type="button" class="Button" onclick="addTodo()" value="Add ToDo"><br><br>
-        <div class="Container"></div>
-    </div>
-
 
 </body>
 
