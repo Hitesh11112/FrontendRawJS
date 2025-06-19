@@ -2,6 +2,11 @@
 
 <body>
     <script>
+        let id = 1;
+        function setId(id){
+            const parent = document.getElementById(id);
+            parent.children[2].innerText = "Done";
+        }
 
         function addTodo(){
 
@@ -9,13 +14,20 @@
             const description = document.querySelector(".Description");
             const showOutput = document.querySelector(".container");
 
-            const addDiv = document.createElement("div");
-            addDiv.innerHTML = title.value;
-            showOutput.appendChild(addDiv);
-            
-            addDiv.appendChild(addDiv).innerHTML = description.value;
-
-            showOutput.appendChild(div);
+            const mainOuterDiv = document.createElement("div");
+            mainOuterDiv.setAttribute("id",id);
+            const inner1Div = document.createElement("div");
+            const inner2Div = document.createElement("div");
+            const innerbutton = document.createElement("button");
+            innerbutton.setAttribute("onclick",`setId(${id})`);
+            inner1Div.innerHTML = title.value;
+            inner2Div.innerHTML = description.value;
+            innerbutton.innerText = "Mark as Done";
+            mainOuterDiv.appendChild(inner1Div);
+            mainOuterDiv.appendChild(inner2Div);
+            mainOuterDiv.appendChild(innerbutton);
+            showOutput.appendChild(mainOuterDiv);
+            id +=1;
         }
 
     </script>
